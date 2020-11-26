@@ -1,0 +1,7 @@
+{
+  "name": "gameNews",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

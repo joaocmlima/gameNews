@@ -1,0 +1,37 @@
+<ion-app>
+  <ion-split-pane contentId="main-content" (ionDidOpen)="kindaGetUser()">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-list-header>Menu</ion-list-header>
+          <ion-note>{{userEmail}}</ion-note>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index" >
+            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="p.url.concat(userEmail)" lines="none" detail="false" [class.selected]="selectedIndex == i">
+              <ion-icon *ngIf="p.icon != ''" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-img *ngIf="p.icon == ''" style="height: 25px; width: 25px;" slot="start" [src]="p.img"></ion-img>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+      <ion-footer>
+        <ion-list lines="none">
+          <ion-list-header>About</ion-list-header>
+          <ion-item>
+            <ion-icon slot="start" name="code-working-outline"></ion-icon>
+            <ion-label>João Carlos</ion-label>
+          </ion-item>
+          <ion-item href="https://twitter.com/021_jcarlos">
+            <ion-icon slot="start" name="logo-twitter"></ion-icon>
+            <ion-label>Twitter</ion-label>
+          </ion-item>
+          <ion-item (click)="sair()">
+            <ion-icon slot="start" name="exit-outline"></ion-icon>
+            <ion-label>Sair do app</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-footer>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
