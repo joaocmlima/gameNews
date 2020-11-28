@@ -8,10 +8,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id/:user',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./user/login/login.module').then( m => m.LoginPageModule)
   },
@@ -20,15 +16,15 @@ const routes: Routes = [
     loadChildren: () => import('./user/insert-user/insert-user.module').then( m => m.InsertUserPageModule)
   },
   {
-    path: 'main/:title/:id/:user',
+    path: 'main/:title/:id',
     loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule)
   },
   {
-    path: 'home/:user',
+    path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'mapa/:user',
+    path: 'mapa',
     loadChildren: () => import('./pages/mapa/mapa.module').then( m => m.MapaPageModule)
   }
 ];

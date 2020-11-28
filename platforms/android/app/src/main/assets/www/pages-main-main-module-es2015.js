@@ -2197,7 +2197,7 @@ HttpClientJsonpModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>{{title}} news</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">{{title}} news</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"efeitoRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-card *ngFor = \"let news of lista_news\" href={{news.url}}>\n    <ion-card-header>\n      <ion-img src={{news.urlToImage}}></ion-img>\n      <br>\n      <ion-card-subtitle>{{news.publishedAt}}</ion-card-subtitle>\n      <ion-card-title>{{news.title}}</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      {{news.description}}\n    </ion-card-content>\n  </ion-card>\n\n  <ion-infinite-scroll threshold=\"100px\" (ionInfinite)=\"efeitoScrollInfinito($event)\">\n    <ion-infinite-scroll-content\n      loadingSpinner=\"circular\"\n      loadingText=\"Carregando mais notícias...\">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>{{title}} news</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\" *ngIf=\"this.global.globalUserLogged\">\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">{{title}} news</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"efeitoRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-card *ngFor = \"let news of lista_news\" href={{news.url}}>\n    <ion-card-header>\n      <ion-img src={{news.urlToImage}}></ion-img>\n      <br>\n      <ion-card-subtitle>{{news.publishedAt}}</ion-card-subtitle>\n      <ion-card-title>{{news.title}}</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      {{news.description}}\n    </ion-card-content>\n  </ion-card>\n\n  <ion-infinite-scroll threshold=\"100px\" (ionInfinite)=\"efeitoScrollInfinito($event)\">\n    <ion-infinite-scroll-content\n      loadingSpinner=\"circular\"\n      loadingText=\"Carregando mais notícias...\">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>");
 
 /***/ }),
 
@@ -2351,17 +2351,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
-/* harmony import */ var src_app_news_newsapi_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/news/newsapi.service */ "./src/app/news/newsapi.service.ts");
+/* harmony import */ var src_app_global_global_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/global/global.service */ "./src/app/global/global.service.ts");
+/* harmony import */ var src_app_news_newsapi_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/news/newsapi.service */ "./src/app/news/newsapi.service.ts");
+
 
 
 
 
 
 let MainPage = class MainPage {
-    constructor(newsApi, activatedRoute, loadingController) {
+    constructor(newsApi, activatedRoute, loadingController, global) {
         this.newsApi = newsApi;
         this.activatedRoute = activatedRoute;
         this.loadingController = loadingController;
+        this.global = global;
         this.lista_news = new Array();
         this.page = 1;
         this.resultsPerPage = 20;
@@ -2369,7 +2372,6 @@ let MainPage = class MainPage {
     ngOnInit() {
         this.subject = this.activatedRoute.snapshot.paramMap.get('id');
         this.title = this.activatedRoute.snapshot.paramMap.get('title');
-        this.user = this.activatedRoute.snapshot.paramMap.get('user');
         console.log(this.title);
     }
     efeitoRefresh(event) {
@@ -2400,8 +2402,10 @@ let MainPage = class MainPage {
         });
     }
     ionViewDidEnter() {
-        this.carregaPagina();
-        this.efeitoLoading();
+        if (this.global.globalUserLogged) {
+            this.carregaPagina();
+            this.efeitoLoading();
+        }
     }
     efeitoLoading() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -2426,17 +2430,23 @@ let MainPage = class MainPage {
             }, 4000);
         }
     }
+    ionViewWillEnter() {
+        if (!this.global.globalUserLogged) {
+            this.global.presentAlert();
+        }
+    }
 };
 MainPage.ctorParameters = () => [
-    { type: src_app_news_newsapi_service__WEBPACK_IMPORTED_MODULE_4__["NewsapiService"] },
+    { type: src_app_news_newsapi_service__WEBPACK_IMPORTED_MODULE_5__["NewsapiService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] },
+    { type: src_app_global_global_service__WEBPACK_IMPORTED_MODULE_4__["GlobalService"] }
 ];
 MainPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-main',
         template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! raw-loader!./main.page.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/pages/main/main.page.html")).default,
-        providers: [src_app_news_newsapi_service__WEBPACK_IMPORTED_MODULE_4__["NewsapiService"]],
+        providers: [src_app_news_newsapi_service__WEBPACK_IMPORTED_MODULE_5__["NewsapiService"]],
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./main.page.scss */ "./src/app/pages/main/main.page.scss")).default]
     })
 ], MainPage);

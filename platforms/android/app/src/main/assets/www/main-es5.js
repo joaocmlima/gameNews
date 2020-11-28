@@ -133,7 +133,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-app>\n  <ion-split-pane contentId=\"main-content\" (ionDidOpen)=\"kindaGetUser()\">\n    <ion-menu contentId=\"main-content\" type=\"overlay\">\n      <ion-content>\n        <ion-list id=\"inbox-list\">\n          <ion-list-header>Menu</ion-list-header>\n          <ion-note>{{userEmail}}</ion-note>\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages; let i = index\" >\n            <ion-item (click)=\"selectedIndex = i\" routerDirection=\"root\" [routerLink]=\"p.url.concat(userEmail)\" lines=\"none\" detail=\"false\" [class.selected]=\"selectedIndex == i\">\n              <ion-icon *ngIf=\"p.icon != ''\" slot=\"start\" [ios]=\"p.icon + '-outline'\" [md]=\"p.icon + '-sharp'\"></ion-icon>\n              <ion-img *ngIf=\"p.icon == ''\" style=\"height: 25px; width: 25px;\" slot=\"start\" [src]=\"p.img\"></ion-img>\n              <ion-label>{{ p.title }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n      </ion-content>\n      <ion-footer>\n        <ion-list lines=\"none\">\n          <ion-list-header>About</ion-list-header>\n          <ion-item>\n            <ion-icon slot=\"start\" name=\"code-working-outline\"></ion-icon>\n            <ion-label>João Carlos</ion-label>\n          </ion-item>\n          <ion-item href=\"https://twitter.com/021_jcarlos\">\n            <ion-icon slot=\"start\" name=\"logo-twitter\"></ion-icon>\n            <ion-label>Twitter</ion-label>\n          </ion-item>\n          <ion-item (click)=\"sair()\">\n            <ion-icon slot=\"start\" name=\"exit-outline\"></ion-icon>\n            <ion-label>Sair do app</ion-label>\n          </ion-item>\n        </ion-list>\n      </ion-footer>\n    </ion-menu>\n    <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n";
+      __webpack_exports__["default"] = "<ion-app>\n  <ion-split-pane contentId=\"main-content\">\n    <ion-menu contentId=\"main-content\" type=\"overlay\">\n      <ion-content>\n        <ion-list id=\"inbox-list\">\n          <ion-list-header>Menu</ion-list-header>\n          <ion-note>{{ global.globalUser }}</ion-note>\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages; let i = index\" >\n            <ion-item (click)=\"selectedIndex = i\" routerDirection=\"root\" [routerLink]=\"p.url\" lines=\"none\" detail=\"false\" [class.selected]=\"selectedIndex == i\">\n              <ion-icon *ngIf=\"p.icon != ''\" slot=\"start\" [ios]=\"p.icon + '-outline'\" [md]=\"p.icon + '-sharp'\"></ion-icon>\n              <ion-img *ngIf=\"p.icon == ''\" style=\"height: 25px; width: 25px;\" slot=\"start\" [src]=\"p.img\"></ion-img>\n              <ion-label>{{ p.title }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n      </ion-content>\n      <ion-footer>\n        <ion-list lines=\"none\">\n          <ion-list-header>About</ion-list-header>\n          <ion-item>\n            <ion-icon slot=\"start\" name=\"code-working-outline\"></ion-icon>\n            <ion-label>João Carlos</ion-label>\n          </ion-item>\n          <ion-item href=\"https://twitter.com/021_jcarlos\">\n            <ion-icon slot=\"start\" name=\"logo-twitter\"></ion-icon>\n            <ion-label>Twitter</ion-label>\n          </ion-item>\n          <ion-item (click)=\"sair()\">\n            <ion-icon slot=\"start\" name=\"exit-outline\"></ion-icon>\n            <ion-label>Sair do app</ion-label>\n          </ion-item>\n        </ion-list>\n      </ion-footer>\n    </ion-menu>\n    <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n";
       /***/
     },
 
@@ -180,17 +180,6 @@
         redirectTo: 'login',
         pathMatch: 'full'
       }, {
-        path: 'folder/:id/:user',
-        loadChildren: function loadChildren() {
-          return Promise.all(
-          /*! import() | folder-folder-module */
-          [__webpack_require__.e("default~folder-folder-module~pages-mapa-mapa-module"), __webpack_require__.e("folder-folder-module")]).then(__webpack_require__.bind(null,
-          /*! ./folder/folder.module */
-          "./src/app/folder/folder.module.ts")).then(function (m) {
-            return m.FolderPageModule;
-          });
-        }
-      }, {
         path: 'login',
         loadChildren: function loadChildren() {
           return Promise.all(
@@ -213,7 +202,7 @@
           });
         }
       }, {
-        path: 'main/:title/:id/:user',
+        path: 'main/:title/:id',
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | pages-main-main-module */
@@ -224,7 +213,7 @@
           });
         }
       }, {
-        path: 'home/:user',
+        path: 'home',
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | pages-home-home-module */
@@ -235,11 +224,11 @@
           });
         }
       }, {
-        path: 'mapa/:user',
+        path: 'mapa',
         loadChildren: function loadChildren() {
-          return Promise.all(
+          return __webpack_require__.e(
           /*! import() | pages-mapa-mapa-module */
-          [__webpack_require__.e("default~folder-folder-module~pages-mapa-mapa-module"), __webpack_require__.e("pages-mapa-mapa-module")]).then(__webpack_require__.bind(null,
+          "pages-mapa-mapa-module").then(__webpack_require__.bind(null,
           /*! ./pages/mapa/mapa.module */
           "./src/app/pages/mapa/mapa.module.ts")).then(function (m) {
             return m.MapaPageModule;
@@ -329,22 +318,28 @@
       var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @ionic-native/status-bar/ngx */
       "./node_modules/@ionic-native/status-bar/__ivy_ngcc__/ngx/index.js");
+      /* harmony import */
+
+
+      var _app_global_global_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ../app/global/global.service */
+      "./src/app/global/global.service.ts");
 
       var AppComponent = /*#__PURE__*/function () {
-        function AppComponent(platform, splashScreen, statusBar) {
+        function AppComponent(platform, splashScreen, statusBar, global) {
           _classCallCheck(this, AppComponent);
 
           this.platform = platform;
           this.splashScreen = splashScreen;
           this.statusBar = statusBar;
-          this.selectedIndex = 0;
+          this.global = global;
           this.appPages = [{
             title: 'Home',
-            url: 'home/',
+            url: 'home',
             icon: 'home'
           }, {
             title: 'Mapa',
-            url: 'mapa/',
+            url: 'mapa',
             icon: 'map'
           }, {
             title: 'VALORANT',
@@ -389,20 +384,15 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var path = window.location.pathname.split('folder/')[1];
-
+            /*const path = window.location.pathname.split('folder/')[1];
             if (path !== undefined) {
-              this.selectedIndex = this.appPages.findIndex(function (page) {
-                return page.title.toLowerCase() === path.toLowerCase();
-              });
-            }
+              this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
+            }*/
           }
         }, {
-          key: "kindaGetUser",
-          value: function kindaGetUser() {
-            if (window.location.pathname.split('home/')[1] !== undefined) {
-              this.userEmail = window.location.pathname.split('home/')[1];
-            }
+          key: "setSelected",
+          value: function setSelected() {
+            this.selectedIndex = 0;
           }
         }, {
           key: "sair",
@@ -421,6 +411,8 @@
           type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"]
         }, {
           type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"]
+        }, {
+          type: _app_global_global_service__WEBPACK_IMPORTED_MODULE_5__["GlobalService"]
         }];
       };
 
@@ -432,7 +424,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./app.component.scss */
         "./src/app/app.component.scss"))["default"]]
-      })], AppComponent);
+      }), Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()], AppComponent);
       /***/
     },
 
@@ -546,6 +538,114 @@
     },
 
     /***/
+    "./src/app/global/global.service.ts":
+    /*!******************************************!*\
+      !*** ./src/app/global/global.service.ts ***!
+      \******************************************/
+
+    /*! exports provided: GlobalService */
+
+    /***/
+    function srcAppGlobalGlobalServiceTs(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "GlobalService", function () {
+        return GlobalService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "./node_modules/tslib/tslib.es6.js");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @angular/router */
+      "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @ionic/angular */
+      "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
+
+      var GlobalService = /*#__PURE__*/function () {
+        function GlobalService(alertController, router) {
+          _classCallCheck(this, GlobalService);
+
+          this.alertController = alertController;
+          this.router = router;
+        }
+
+        _createClass(GlobalService, [{
+          key: "presentAlert",
+          value: function presentAlert() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this2 = this;
+
+              var alert;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.alertController.create({
+                        cssClass: 'my-custom-class',
+                        header: 'Usuário não logado!',
+                        message: 'Usuário precisa estar logado para acessar esta página.',
+                        buttons: [{
+                          text: 'OK',
+                          handler: function handler() {
+                            _this2.router.navigate(['login']);
+                          }
+                        }]
+                      });
+
+                    case 2:
+                      alert = _context.sent;
+                      _context.next = 5;
+                      return alert.present();
+
+                    case 5:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }]);
+
+        return GlobalService;
+      }();
+
+      GlobalService.ctorParameters = function () {
+        return [{
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
+        }];
+      };
+
+      GlobalService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], GlobalService);
+      /***/
+    },
+
+    /***/
     "./src/environments/environment.ts":
     /*!*****************************************!*\
       !*** ./src/environments/environment.ts ***!
@@ -652,7 +752,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! C:\Users\JoaoC\Desktop\workspace\WORK_IONIC6\gameNews\src\main.ts */
+      /*! C:\Users\JoaoC\Desktop\workspace\GIT_REPO'S\gameNews\src\main.ts */
       "./src/main.ts");
       /***/
     }

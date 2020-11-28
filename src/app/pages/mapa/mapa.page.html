@@ -7,6 +7,6 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding *ngIf="this.global.globalUserLogged">
   <div id="mapId" style="height: 100%;"></div>
 </ion-content>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { GlobalService } from 'src/app/global/global.service';
 import { NewsapiService } from 'src/app/news/newsapi.service';
 
 @Component({
@@ -22,13 +23,13 @@ export class MainPage implements OnInit {
   constructor(
     public newsApi:NewsapiService, 
     private activatedRoute:ActivatedRoute, 
-    public loadingController:LoadingController
+    public loadingController:LoadingController,
+    public global: GlobalService
   ) { }
 
   ngOnInit() {
     this.subject = this.activatedRoute.snapshot.paramMap.get('id');
     this.title = this.activatedRoute.snapshot.paramMap.get('title');
-    this.user = this.activatedRoute.snapshot.paramMap.get('user');
     console.log(this.title);
   }
 
@@ -66,8 +67,10 @@ export class MainPage implements OnInit {
   }
 
   ionViewDidEnter(){
-    this.carregaPagina();
-    this.efeitoLoading();
+    if(this.global.globalUserLogged){
+      this.carregaPagina();
+      this.efeitoLoading();
+    }
   }
 
   async efeitoLoading(){
@@ -92,6 +95,12 @@ export class MainPage implements OnInit {
         console.log('Done');
         event.target.complete();
       }, 4000);
+    }
+  }
+
+  ionViewWillEnter(){
+    if(!this.global.globalUserLogged){
+      this.global.presentAlert();
     }
   }
 

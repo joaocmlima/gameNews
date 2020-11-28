@@ -1,27 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { GlobalService } from '../app/global/global.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
+
+@Injectable()
 export class AppComponent implements OnInit {
-  public userEmail:string;
-  public userLogged;
-  public selectedIndex = 0;
+  public userEmail:string; 
+  public selectedIndex:number;
   public appPages = [
     {
       title: 'Home',
-      url: 'home/',
+      url: 'home',
       icon: 'home',
     },
     {
       title: 'Mapa',
-      url: 'mapa/',
+      url: 'mapa',
       icon: 'map',
     },
     {
@@ -59,7 +61,8 @@ export class AppComponent implements OnInit {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    public global:GlobalService
   ) {
     this.initializeApp();
   }
@@ -72,16 +75,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
+    /*const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
+    }*/
   }
 
-  kindaGetUser(){
-    if (window.location.pathname.split('home/')[1] !== undefined) {
-      this.userEmail = window.location.pathname.split('home/')[1];
-    }
+  setSelected(){
+    this.selectedIndex = 0;
   }
 
   sair(){

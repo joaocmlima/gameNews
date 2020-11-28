@@ -447,12 +447,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/__ivy_ngcc__/fesm2015/angular-fire-auth.js");
+/* harmony import */ var _global_global_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../global/global.service */ "./src/app/global/global.service.ts");
+
 
 
 
 let AutenticacaoService = class AutenticacaoService {
-    constructor(ngFireAuth) {
+    constructor(ngFireAuth, global) {
         this.ngFireAuth = ngFireAuth;
+        this.global = global;
     }
     loginNoFirebase(email, password) {
         return this.ngFireAuth.signInWithEmailAndPassword(email, password);
@@ -460,12 +463,10 @@ let AutenticacaoService = class AutenticacaoService {
     insertNoFirebase(email, password) {
         return this.ngFireAuth.createUserWithEmailAndPassword(email, password);
     }
-    getUserLogged() {
-        return this.ngFireAuth.currentUser;
-    }
 };
 AutenticacaoService.ctorParameters = () => [
-    { type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"] }
+    { type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"] },
+    { type: _global_global_service__WEBPACK_IMPORTED_MODULE_3__["GlobalService"] }
 ];
 AutenticacaoService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({

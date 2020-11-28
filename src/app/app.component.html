@@ -1,12 +1,12 @@
 <ion-app>
-  <ion-split-pane contentId="main-content" (ionDidOpen)="kindaGetUser()">
+  <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
           <ion-list-header>Menu</ion-list-header>
-          <ion-note>{{userEmail}}</ion-note>
+          <ion-note>{{ global.globalUser }}</ion-note>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index" >
-            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="p.url.concat(userEmail)" lines="none" detail="false" [class.selected]="selectedIndex == i">
+            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="p.url" lines="none" detail="false" [class.selected]="selectedIndex == i">
               <ion-icon *ngIf="p.icon != ''" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-img *ngIf="p.icon == ''" style="height: 25px; width: 25px;" slot="start" [src]="p.img"></ion-img>
               <ion-label>{{ p.title }}</ion-label>

@@ -700,12 +700,19 @@
       var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/fire/auth */
       "./node_modules/@angular/fire/__ivy_ngcc__/fesm2015/angular-fire-auth.js");
+      /* harmony import */
+
+
+      var _global_global_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! ../global/global.service */
+      "./src/app/global/global.service.ts");
 
       var AutenticacaoService = /*#__PURE__*/function () {
-        function AutenticacaoService(ngFireAuth) {
+        function AutenticacaoService(ngFireAuth, global) {
           _classCallCheck(this, AutenticacaoService);
 
           this.ngFireAuth = ngFireAuth;
+          this.global = global;
         }
 
         _createClass(AutenticacaoService, [{
@@ -718,11 +725,6 @@
           value: function insertNoFirebase(email, password) {
             return this.ngFireAuth.createUserWithEmailAndPassword(email, password);
           }
-        }, {
-          key: "getUserLogged",
-          value: function getUserLogged() {
-            return this.ngFireAuth.currentUser;
-          }
         }]);
 
         return AutenticacaoService;
@@ -731,6 +733,8 @@
       AutenticacaoService.ctorParameters = function () {
         return [{
           type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"]
+        }, {
+          type: _global_global_service__WEBPACK_IMPORTED_MODULE_3__["GlobalService"]
         }];
       };
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LoadingController } from '@ionic/angular';
 import {Map,tileLayer,marker} from 'leaflet';
+import { GlobalService } from 'src/app/global/global.service';
 
 @Component({
   selector: 'app-mapa',
@@ -18,21 +18,24 @@ export class MapaPage implements OnInit {
 
   constructor(
     private geolocation: Geolocation,
-    private activatedRoute: ActivatedRoute,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    public global:GlobalService
   ) { }
 
   ngOnInit() {
   }
 
   ionViewDidEnter(){
-    this.efeitoLoading();
-    this.loadMap();
+    if(this.global.globalUserLogged){
+      this.efeitoLoading();
+      this.loadMap();
+    }
   }
 
   loadMap(){
     this.geolocation.getCurrentPosition().then(
       (resp) => {
+        console.log(resp.coords.latitude+" & "+resp.coords.longitude);
         this.map = new Map("mapId").setView([resp.coords.latitude,resp.coords.longitude], 17);
         tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         { 
@@ -51,7 +54,7 @@ export class MapaPage implements OnInit {
 
   async efeitoLoading(){
     const loading = await this.loadingController.create({
-      message: 'Carregando as notícias', 
+      message: 'Carregando mapa...', 
       duration: 4000
     });
 
@@ -60,4 +63,9 @@ export class MapaPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
+  ionViewWillEnter(){
+    if(!this.global.globalUserLogged){
+      this.global.presentAlert();
+    }
+  }
 }

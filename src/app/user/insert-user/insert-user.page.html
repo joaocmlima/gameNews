@@ -1,19 +1,31 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Cadastrar usuário</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <br><br>
   <form>
     <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input name="email" type="email" [(ngModel)]="email"></ion-input>
+      <ion-label position="fixed">Email</ion-label>
+      <ion-input name="email" type="email" [(ngModel)]="email" required></ion-input>
     </ion-item>
   
     <ion-item lines="full">
-      <ion-label position="floating">Senha</ion-label>
-      <ion-input name="senha" type="password" [(ngModel)]="senha"></ion-input>
+      <ion-label position="fixed">Senha</ion-label>
+      <ion-input name="senha" [type]="type" [(ngModel)]="senha" required></ion-input>
+      <ion-icon (click)="showSenha()" slot="end" name="eye" [color]="colorActive"></ion-icon>
+    </ion-item>
+
+    <br>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Confirmar senha</ion-label>
+      <ion-input name="senha2" type="password" [(ngModel)]="senha2" required></ion-input>
     </ion-item>
   
     <ion-row>

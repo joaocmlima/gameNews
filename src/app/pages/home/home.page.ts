@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalService } from 'src/app/global/global.service';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +12,16 @@ export class HomePage implements OnInit {
   public user:string;
 
   constructor(
-    public activatedRoute:ActivatedRoute
+    public activatedRoute:ActivatedRoute,
+    public global:GlobalService
   ) { }
 
   ngOnInit() {
-    this.user = this.activatedRoute.snapshot.paramMap.get('user');
   }
 
+  ionViewWillEnter(){
+    if(!this.global.globalUserLogged){
+      this.global.presentAlert();
+    }
+  }
 }
